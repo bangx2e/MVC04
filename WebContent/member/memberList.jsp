@@ -23,7 +23,7 @@ function deleteFn(num) {
 <title>Insert title here</title>
 </head>
 <body>
-[MVC03 예제 - Controller + View]
+[MVC04 예제 - Controller + View]
 	<table class='table table-bordered'>
 		<tr>
 			<td>번호</td>
@@ -54,7 +54,7 @@ function deleteFn(num) {
 <!--  			} -->
 <%-- 		%> --%>
 	<tr>
-		<td colspan='8' align='right'><input type="button" value="회원가입" class='btn btn-primary' onclick="location.href='member/memberRegister.html'"/></td>
+		<td colspan='8' align='right'><input type="button" value="회원가입" class='btn btn-primary' onclick="location.href='/MVC04/memberRegister.do'"/></td>
 	</tr>
 	</table>
 </body>
