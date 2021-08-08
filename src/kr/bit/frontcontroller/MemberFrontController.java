@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.bit.controller.MemberListController;
 import kr.bit.model.MemberDAO;
 import kr.bit.model.MemberVO;
 
@@ -28,9 +29,8 @@ public class MemberFrontController extends HttpServlet {
 
 		// 페이지 분기 시작
 		if (command.equals("/memberList.do")) { // 회원 리스트
-			MemberDAO dao = new MemberDAO();
-			List<MemberVO> list = dao.memberList();
-			request.setAttribute("list", list);
+			MemberListController mlc = new MemberListController();
+			mlc.requestHandler(request, response);
 			RequestDispatcher rd = request.getRequestDispatcher("member/memberList.jsp");
 			rd.forward(request, response);
 		} else if (command.equals("/memberInsert.do")) { // 회원가입
@@ -55,10 +55,11 @@ public class MemberFrontController extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("member/memberRegister.html");
 			rd.forward(request, response);
 		} else if (command.equals("/memberContent.do")) { // 회원 수정화면
-
+			// 생략
 		} else if (command.equals("/memberUpdate.do")) { // 회원 정보수정
-
+			// 생략
 		} else if (command.equals("/memberDelete.do")) { // 회원 삭제
+			// 생략
 
 		} // 페이지 분기 종료
 	}
