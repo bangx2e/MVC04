@@ -32,7 +32,6 @@ public class MemberFrontController extends HttpServlet {
 
 		// 실질적인 요청 처리
 		String command = url.substring(ctx.length());
-
 		Controller controller = null;
 		String nextPage = null;
 
@@ -59,13 +58,12 @@ public class MemberFrontController extends HttpServlet {
 		} else if (command.equals("/memberUpdate.do")) { // 회원 정보수정
 			controller = new MemberUpdateController();
 			nextPage = controller.requestHandler(request, response);
-			RequestDispatcher rd = request.getRequestDispatcher(nextPage);
-			rd.forward(request, response);
+			response.sendRedirect(nextPage);
+			System.out.println(nextPage);
 		} else if (command.equals("/memberDelete.do")) { // 회원 삭제
 			controller = new MemberDeleteController();
 			nextPage = controller.requestHandler(request, response);
-			RequestDispatcher rd = request.getRequestDispatcher(nextPage);
-			rd.forward(request, response);
+			response.sendRedirect(nextPage);
 
 		} // 페이지 분기 종료
 	}
