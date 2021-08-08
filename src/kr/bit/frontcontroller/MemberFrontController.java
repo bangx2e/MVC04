@@ -10,7 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.bit.controller.Controller;
+import kr.bit.controller.MemberContentController;
+import kr.bit.controller.MemberDeleteController;
+import kr.bit.controller.MemberInsertController;
 import kr.bit.controller.MemberListController;
+import kr.bit.controller.MemberRegisterController;
+import kr.bit.controller.MemberUpdateController;
 import kr.bit.model.MemberDAO;
 import kr.bit.model.MemberVO;
 
@@ -27,39 +33,39 @@ public class MemberFrontController extends HttpServlet {
 		// 실질적인 요청 처리
 		String command = url.substring(ctx.length());
 
+		Controller controller = null;
+		String nextPage = null;
+
 		// 페이지 분기 시작
 		if (command.equals("/memberList.do")) { // 회원 리스트
-			MemberListController mlc = new MemberListController();
-			mlc.requestHandler(request, response);
-			RequestDispatcher rd = request.getRequestDispatcher("member/memberList.jsp");
+			controller = new MemberListController();
+			nextPage = controller.requestHandler(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher(nextPage);
 			rd.forward(request, response);
 		} else if (command.equals("/memberInsert.do")) { // 회원가입
-			MemberVO vo = new MemberVO();
-			MemberDAO dao = new MemberDAO();
-			int cnt = 0;
-			request.setCharacterEncoding("UTF-8");
-			vo.setName(request.getParameter("name"));
-			vo.setId(request.getParameter("id"));
-			vo.setPass(request.getParameter("pass"));
-			vo.setEmail(request.getParameter("email"));
-			vo.setPhone(request.getParameter("phone"));
-			vo.setAge(Integer.parseInt(request.getParameter("age")));
-			cnt = dao.memberInsert(vo);
-			if (cnt > 0) {
-				response.sendRedirect("/MVC04/memberList.do");
-			} else {
-				throw new ServletException("Insert Error");
-			}
-			System.out.println("가입완료");
+			controller = new MemberInsertController();
+			nextPage = controller.requestHandler(request, response);
+			response.sendRedirect(nextPage);
 		} else if (command.equals("/memberRegister.do")) { // 회원 가입화면
-			RequestDispatcher rd = request.getRequestDispatcher("member/memberRegister.html");
+			controller = new MemberRegisterController();
+			nextPage = controller.requestHandler(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher(nextPage);
 			rd.forward(request, response);
 		} else if (command.equals("/memberContent.do")) { // 회원 수정화면
-			// 생략
+			controller = new MemberContentController();
+			nextPage = controller.requestHandler(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher(nextPage);
+			rd.forward(request, response);
 		} else if (command.equals("/memberUpdate.do")) { // 회원 정보수정
-			// 생략
+			controller = new MemberUpdateController();
+			nextPage = controller.requestHandler(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher(nextPage);
+			rd.forward(request, response);
 		} else if (command.equals("/memberDelete.do")) { // 회원 삭제
-			// 생략
+			controller = new MemberDeleteController();
+			nextPage = controller.requestHandler(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher(nextPage);
+			rd.forward(request, response);
 
 		} // 페이지 분기 종료
 	}
