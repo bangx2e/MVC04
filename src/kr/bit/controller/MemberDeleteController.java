@@ -20,7 +20,7 @@ public class MemberDeleteController implements Controller{
 		String nextPage = null;
 		if(rs>0) {
 			System.out.println("삭제 성공");
-			nextPage = "/MVC04/memberList.do";
+			nextPage = "redirect:/MVC04/memberList.do";
 		} else {
 			throw new ServletException("삭제 실패");
 		}

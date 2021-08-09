@@ -19,7 +19,7 @@ public class MemberContentController implements Controller{
 		MemberVO vo = new MemberVO();
 		vo = dao.memberContent(num);
 		request.setAttribute("vo", vo);
-		return "member/memberContent.jsp";
+		return "/WEB-INF/member/memberContent.jsp";
 	}
 
 }

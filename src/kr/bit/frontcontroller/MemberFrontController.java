@@ -34,38 +34,19 @@ public class MemberFrontController extends HttpServlet {
 		String command = url.substring(ctx.length());
 		Controller controller = null;
 		String nextPage = null;
-
-		// 페이지 분기 시작
-		if (command.equals("/memberList.do")) { // 회원 리스트
-			controller = new MemberListController();
-			nextPage = controller.requestHandler(request, response);
-			RequestDispatcher rd = request.getRequestDispatcher(nextPage);
+		
+		// 핸들러매핑 -> HandlerMapping
+		HandlerMapping mapping = new HandlerMapping();
+		controller = mapping.getContoller(command);
+		nextPage=controller.requestHandler(request, response);
+		
+		// forward, redirect 간소화
+		if(nextPage.indexOf("redirect")!=-1) {
+			response.sendRedirect(nextPage.split(":")[1]); //redirect
+		} else {
+			RequestDispatcher rd = request.getRequestDispatcher(nextPage);//forward
 			rd.forward(request, response);
-		} else if (command.equals("/memberInsert.do")) { // 회원가입
-			controller = new MemberInsertController();
-			nextPage = controller.requestHandler(request, response);
-			response.sendRedirect(nextPage);
-		} else if (command.equals("/memberRegister.do")) { // 회원 가입화면
-			controller = new MemberRegisterController();
-			nextPage = controller.requestHandler(request, response);
-			RequestDispatcher rd = request.getRequestDispatcher(nextPage);
-			rd.forward(request, response);
-		} else if (command.equals("/memberContent.do")) { // 회원 수정화면
-			controller = new MemberContentController();
-			nextPage = controller.requestHandler(request, response);
-			RequestDispatcher rd = request.getRequestDispatcher(nextPage);
-			rd.forward(request, response);
-		} else if (command.equals("/memberUpdate.do")) { // 회원 정보수정
-			controller = new MemberUpdateController();
-			nextPage = controller.requestHandler(request, response);
-			response.sendRedirect(nextPage);
-			System.out.println(nextPage);
-		} else if (command.equals("/memberDelete.do")) { // 회원 삭제
-			controller = new MemberDeleteController();
-			nextPage = controller.requestHandler(request, response);
-			response.sendRedirect(nextPage);
-
-		} // 페이지 분기 종료
+		}
 	}
 
 }

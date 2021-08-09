@@ -27,7 +27,7 @@ public class MemberInsertController implements Controller{
 		cnt = dao.memberInsert(vo);
 		String nextPage = null;
 		if (cnt > 0) {
-			nextPage = "/MVC04/memberList.do";
+			nextPage = "redirect:/MVC04/memberList.do";
 		} else {
 			throw new ServletException("Insert Error");
 		}
