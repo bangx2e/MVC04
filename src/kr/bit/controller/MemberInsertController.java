@@ -14,6 +14,7 @@ public class MemberInsertController implements Controller{
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String ctx = request.getContextPath();
 		MemberVO vo = new MemberVO();
 		MemberDAO dao = new MemberDAO();
 		int cnt = 0;
@@ -27,7 +28,7 @@ public class MemberInsertController implements Controller{
 		cnt = dao.memberInsert(vo);
 		String nextPage = null;
 		if (cnt > 0) {
-			nextPage = "redirect:/MVC04/memberList.do";
+			nextPage = "redirect:"+ctx+"/memberList.do";
 		} else {
 			throw new ServletException("Insert Error");
 		}

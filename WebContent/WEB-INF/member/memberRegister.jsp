@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +17,9 @@
 </head>
 <body>
 	MVC04 회원가입 화면
-	<form method="post" action="/MVC04/memberInsert.do">
-		<table class="table table-bordered"	style="table-layout: fixed; width: 585px">
+	<form method="post" action="${ctx}/memberInsert.do">
+		<table class="table table-bordered"
+			style="table-layout: fixed; width: 585px">
 			<tr>
 				<td>아이디</td>
 				<td><input type="text" name="id"></td>
@@ -41,10 +46,9 @@
 				<td><input type="text" name="phone"></td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center">
-					<input type="submit" value="가입" class="btn btn-primary"> 
-					<input type="reset" value="취소"	class="btn btn-warning">
-				</td>
+				<td colspan="2" align="center"><input type="submit" value="가입"
+					class="btn btn-primary"> <input type="reset" value="취소"
+					class="btn btn-warning"></td>
 			</tr>
 
 		</table>

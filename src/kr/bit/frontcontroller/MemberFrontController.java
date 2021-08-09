@@ -44,7 +44,7 @@ public class MemberFrontController extends HttpServlet {
 		if(nextPage.indexOf("redirect")!=-1) {
 			response.sendRedirect(nextPage.split(":")[1]); //redirect
 		} else {
-			RequestDispatcher rd = request.getRequestDispatcher(nextPage);//forward
+			RequestDispatcher rd = request.getRequestDispatcher(ViewResolver.makeView(nextPage));//forward
 			rd.forward(request, response);
 		}
 	}
